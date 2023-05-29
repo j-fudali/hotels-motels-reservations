@@ -1,4 +1,8 @@
-<div class="col-12 col-lg-10 container min-vh-100 py-3 px-lg-4">
+@extends('shared.dashboard')
+@section('sidebar')
+    @include('shared.search-bar')
+@endsection
+@section('dashboard-content')
     <div class="row g-2 justify-content-start align-items-start">
         <div class="col-12 col-md-6 col-lg-4">
             <div class="card">
@@ -41,4 +45,4 @@
         </div>
 
     </div>
-</div>
+@endsection

@@ -5,29 +5,29 @@
         <div class="col">
             <div class="mb-3 mx-3">
                 <label class="form-label" for="firstname">Imię</label>
-                <input class="form-control" type="text" name="first_name">
+                <input class="form-control" id="firstname" type="text" name="first_name">
             </div>
             <div class="mb-3 mx-3">
                 <label class="form-label" for="lastname">Nazwisko</label>
-                <input class="form-control" type="text" name="last_name">
+                <input class="form-control" id="lastname" type="text" name="last_name">
             </div>
             <div class="mb-3 mx-3">
                 <label class="form-label" for="email">E-mail</label>
-                <input class="form-control" type="email" name="email">
+                <input class="form-control" id="email" type="email" name="email">
             </div>
             <div class="mb-3 mx-3">
                 <label class="form-label" for="birth_date">Data urodzenia</label>
-                <input class="form-control" type="date" name="birth_date">
+                <input class="form-control" id="birth_date" type="date" name="birth_date">
             </div>
         </div>
         <div class="col">
             <div class="mb-3 mx-3">
                 <label class="form-label" for="country">Kraj</label>
-                <input class="form-control" type="text" name="country">
+                <input class="form-control" id="country" type="text" name="country">
             </div>
             <div class="mb-3 mx-3">
                 <label class="form-label" for="password">Hasło</label>
-                <input class="form-control" type="password" name="password">
+                <input class="form-control" id="password" type="password" name="password">
             </div>
             <div class="mb-3 mx-3">
                 <span class="form-label d-block">Czy jesteś właścicielem hotelu?</span>
