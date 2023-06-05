@@ -30,7 +30,7 @@ class RegisterController extends Controller
             $user->is_hotel_owner = $request->is_hotel_owner;
             $user->save();
         } catch (\Illuminate\Database\QueryException $ex) {
-            return back()->withErrors(['signup_form' => "Nie można utworzyć użytkownika"]);
+            return back()->withErrors(['errors' => "Nie można utworzyć użytkownika"]);
         }
         return redirect('/');
     }

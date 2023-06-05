@@ -5,7 +5,7 @@
                 data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand fs-3" href="{{ route('dashboard') }}">H&M Reservations</a>
+            <a class="navbar-brand fs-3" href="{{ route('offers.index') }}">H&M Reservations</a>
         </div>
         <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasNavbar"
             aria-labelledby="offcanvasNavbarLabel">
@@ -14,16 +14,15 @@
             </div>
             <div class="offcanvas-body d-flex flex-column flex-lg-row justify-content-between">
                 <div class="navbar-nav">
-                    <a class="nav-link" href="{{ route('dashboard.reservations') }}">Moje rezerwacje</a>
+                    <a class="nav-link" href="{{ route('reservations.index') }}">Moje rezerwacje</a>
                     @if ($user->is_hotel_owner)
-                        <a class="nav-link" href="{{ route('dashboard.profile') }}">Moje hotele</a>
+                        <a class="nav-link" href="{{ route('hotels.index') }}">Moje hotele</a>
                     @endif
-                    <a class="nav-link" href="{{ route('dashboard.profile') }}">Profil</a>
+                    <a class="nav-link" href="{{ route('profile.index') }}">Profil</a>
                 </div>
                 <div class="d-flex flex-column flex-lg-row gap-3 align-items-stretch align-items-lg-center">
                     <span>Witaj, {{ $user->first_name }}</span>
-                    <a href="#" class="btn btn-outline-primary">Stwórz oferte</a>
-                    <form action="{{ route('logout') }}" method="POST">
+                    <form class="align-self-end" action="{{ route('logout') }}" method="POST">
                         @csrf
                         <button type="submit" class="btn btn-outline-danger">Wyloguj</button>
                     </form>

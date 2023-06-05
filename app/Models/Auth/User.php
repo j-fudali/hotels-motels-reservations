@@ -29,4 +29,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
     ];
+    /**
+     * Prepare a date for array / JSON serialization.
+     */
 }

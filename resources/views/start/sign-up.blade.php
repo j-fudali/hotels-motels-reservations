@@ -46,7 +46,7 @@
             <input class="btn btn-primary" type="submit" value="Stwórz" />
         </div>
     </form>
-    @if ($errors->all())
-        @include('shared.errors', ['errors' => $errors->all()])
+    @if ($errors->signup_form->all())
+        @include('shared.errors', ['errors' => $errors->signup_form->all()])
     @endif
 </div>

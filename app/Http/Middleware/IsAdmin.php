@@ -5,9 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\UnauthorizedException;
 
-class UserPermissionMiddleware
+class IsAdmin
 {
     /**
      * Handle an incoming request.
@@ -18,8 +17,8 @@ class UserPermissionMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check()) {
+        if (Auth::user()->is_hotel_owner)
             return $next($request);
-        }
+        return back()->withErrors('errors', 'Dostęp tylko dla właścicieli hoteli');
     }
 }

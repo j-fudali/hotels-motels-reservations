@@ -15,13 +15,17 @@ class LoginController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
-        if (!Auth::attempt($credentials)) {
-            return back()->withErrors([
-                'email' => 'Podane dane są nieprawidłowe',
-            ], 'login_form')->onlyInput('email');
+        try {
+            if (!Auth::attempt($credentials)) {
+                return back()->withErrors([
+                    'email' => 'Podane dane są nieprawidłowe',
+                ], 'login_form')->onlyInput('email');
+            }
+            $request->session()->regenerate();
+            return redirect(RouteServiceProvider::HOME);
+        } catch (\Illuminate\Database\QueryException $ex) {
+            return back()->withErrors(['errors' => "Nie można się zalogować. Spróbuj ponownie później"]);
         }
-        $request->session()->regenerate();
-        return redirect(RouteServiceProvider::HOME);
     }
     public function logout(Request $request)
     {

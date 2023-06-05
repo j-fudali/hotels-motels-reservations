@@ -191,6 +191,8 @@ return [
         'updated_at'               => 'Updated At',
         'username'                 => 'Nazwa użytkownika',
         'year'                     => 'Rok',
+        'cost_per_day'             => 'Koszt za dzień',
+        'number_of_people'         => 'Liczba osób'
     ],
     'custom'               => [
         'attribute-name' => [

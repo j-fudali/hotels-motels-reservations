@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HotelController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\RoomController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
@@ -32,9 +34,13 @@ Route::middleware('guest')->group(function () {
 });
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-    Route::resource('dashboard', DashboardController::class)->only('index')->name('index', 'dashboard');
-    Route::resource('dashboard/reservations', ReservationController::class)->name('index', 'dashboard.reservations');
-    Route::resource('dashboard/profile', UserController::class)->name('index', 'dashboard.profile');
+    Route::resource('offers', DashboardController::class);
+    Route::resource('reservations', ReservationController::class);
+    Route::resource('profile', UserController::class);
+});
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::resource('hotels', HotelController::class);
+    Route::resource('hotels.rooms', RoomController::class);
 });
 Route::any('/', function () {
     return redirect('/start');
