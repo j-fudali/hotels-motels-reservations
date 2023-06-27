@@ -11,21 +11,27 @@
                     @csrf
                     <div>
                         <label for="number_of_people" class="form-label">Liczba osób</label>
-                        <input min="1" type="number" name="number_of_people" id="number_of_people"
+                        <input required min="1" type="number" name="number_of_people" id="number_of_people"
                             class="form-control">
                     </div>
                     <div>
                         <label for="cost_per_day" class="form-label">Koszt za 1 dzień</label>
-                        <input step="0.01" type="number" name="cost_per_day" id="cost_per_day" class="form-control">
+                        <input required step="0.01" type="number" name="cost_per_day" id="cost_per_day"
+                            class="form-control">
+                    </div>
+                    <div>
+                        <label for="number_of_rooms" class="form-label">Liczba wolnych pokoi tego typu</label>
+                        <input required min="1" type="number" name="number_of_rooms" id="number_of_rooms"
+                            class="form-control">
                     </div>
                     <div>
                         <label for="formFile" class="form-label">Dodaj zdjęcia</label>
-                        <input class="form-control" name="images[]" type="file" accept="image/*" id="formFile"
-                            multiple>
+                        <input required class="form-control" name="images[]" type="file" accept="image/*"
+                            id="formFile" multiple>
                     </div>
                     <div>
                         <div class="form-floating">
-                            <textarea name="description" class="form-control" placeholder="Opis..." id="floatingTextarea"></textarea>
+                            <textarea required name="description" maxlength="500" class="form-control" placeholder="Opis..." id="floatingTextarea"></textarea>
                             <label for="floatingTextarea">Opis</label>
                         </div>
                     </div>

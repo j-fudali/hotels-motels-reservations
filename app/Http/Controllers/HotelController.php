@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Hotel;
 use App\Http\Requests\StoreHotelRequest;
 use App\Http\Requests\UpdateHotelRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
 
 class HotelController extends Controller
@@ -16,21 +16,14 @@ class HotelController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return View::make('dashboard.hotels');
+        $hotels = Hotel::where('user_id_user', Auth::id())->orderBy('name')->paginate(6);
+        if ($request->ajax()) {
+            return view('dashboard.hotels.hotels-results', ['hotels' => $hotels])->render();
+        }
+        return View::make('dashboard.hotels.hotels', ['hotels' => $hotels]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -45,34 +38,18 @@ class HotelController extends Controller
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('images', 'public');
         }
-        $hotel = new Hotel(array_merge($validated, [
+        $hotel = new Hotel([
+            'name' => $validated['name'],
+            'description' => $validated['description'],
+            'address' => $validated['address'],
+            'city' => $validated['city'],
             'image' => $path,
+            'countries_id_countries' => $validated['country'],
+            'provinces_id_provinces' => $validated['province'],
             'user_id_user' => Auth::id()
-        ]));
+        ]);
         $hotel->save();
-        return redirect('/hotels');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Hotel  $hotel
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Hotel $hotel)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Hotel  $hotel
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Hotel $hotel)
-    {
-        //
+        return redirect('/hotels/' . $hotel->id_hotel . '/rooms')->with(['messages' => 'Utworzyłeś nowy hotel. Teraz dodaj do niego pokoje']);
     }
 
     /**
@@ -101,10 +78,13 @@ class HotelController extends Controller
      */
     public function destroy(Hotel $hotel)
     {
+        if (count($hotel->rooms()->get()) > 0) {
+            return back()->withErrors(['errors' => 'Nie można usunąć hotelu dopóki posiada on przypisane pokoje']);
+        }
         if (file_exists(public_path('storage/' . $hotel->image))) {
             unlink(public_path('storage/' . $hotel->image));
         }
         Hotel::destroy($hotel->id_hotel);
-        return back()->with(['messages' => 'Hotel został usunięty']);
+        return redirect('/hotels')->with(['messages' => 'Hotel został usunięty']);
     }
 }

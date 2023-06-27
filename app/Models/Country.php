@@ -4,19 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Hotel extends Model
+class Country extends Model
 {
     use HasFactory;
-
     /**
      * The primary key associated with the table.
      *
      * @var string
      */
-    protected $primaryKey = 'id_hotel';
+    protected $primaryKey = 'id_countries';
     /**
      * Indicates if the model's ID is auto-incrementing.
      *
@@ -34,17 +32,9 @@ class Hotel extends Model
      * @var bool
      */
     public $timestamps = false;
-    protected $fillable = ['name', 'image', 'description', 'countries_id_countries', 'provinces_id_provinces', 'city', 'address', 'user_id_user'];
-    public function rooms(): HasMany
+    protected $fillable = ['name'];
+    public function provinces(): HasMany
     {
-        return $this->hasMany(Room::class);
-    }
-    public function country(): BelongsTo
-    {
-        return $this->belongsTo(Country::class, 'countries_id_countries', 'id_countries');
-    }
-    public function province(): BelongsTo
-    {
-        return $this->belongsTo(Province::class, 'provinces_id_provinces', 'id_provinces');
+        return $this->hasMany(Province::class);
     }
 }

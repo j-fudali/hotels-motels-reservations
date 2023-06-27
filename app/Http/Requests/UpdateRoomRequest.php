@@ -13,7 +13,7 @@ class UpdateRoomRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class UpdateRoomRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'description' => 'required|max:500',
+            'images.*' => 'image'
         ];
     }
 }

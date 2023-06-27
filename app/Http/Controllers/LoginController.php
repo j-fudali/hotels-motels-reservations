@@ -9,22 +9,20 @@ use App\Providers\RouteServiceProvider;
 
 class LoginController extends Controller
 {
-    public function login(Request $request): RedirectResponse
+    public function login(Request $request)
     {
-        $credentials = $request->validateWithBag('login_form', [
+        $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
         try {
             if (!Auth::attempt($credentials)) {
-                return back()->withErrors([
-                    'email' => 'Podane dane są nieprawidłowe',
-                ], 'login_form')->onlyInput('email');
+                return response()->json(['errors' => ['Podane dane są nieprawidłowe']], 401);
             }
             $request->session()->regenerate();
-            return redirect(RouteServiceProvider::HOME);
+            return response()->json(['redirect' => url(RouteServiceProvider::HOME)]);
         } catch (\Illuminate\Database\QueryException $ex) {
-            return back()->withErrors(['errors' => "Nie można się zalogować. Spróbuj ponownie później"]);
+            return response()->json(['errors' => ["Nie można się zalogować. Spróbuj ponownie później"]], 401);
         }
     }
     public function logout(Request $request)

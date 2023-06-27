@@ -2,7 +2,9 @@
 
 namespace App\Models\Auth;
 
+use App\Models\Country;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -15,10 +17,10 @@ class User extends Authenticatable
         'firstname',
         'lastname',
         'email',
-        'country',
         'birth_date',
         'password',
-        'is_hotel_owner'
+        'is_hotel_owner',
+        'countries_id_countries'
     ];
 
     /**
@@ -29,7 +31,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
     ];
-    /**
-     * Prepare a date for array / JSON serialization.
-     */
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(Country::class, 'countries_id_countries', 'id_countries');
+    }
 }

@@ -25,6 +25,7 @@ class StoreRoomRequest extends FormRequest
     {
         return [
             'number_of_people' => 'required|integer',
+            'number_of_rooms' => 'required|integer',
             'description' => 'required|max:500',
             'cost_per_day' => 'required|numeric',
             'images' => 'required',

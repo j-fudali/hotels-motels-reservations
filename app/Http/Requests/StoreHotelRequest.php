@@ -26,12 +26,11 @@ class StoreHotelRequest extends FormRequest
         return [
             'name' => 'required|max:60',
             'description' => 'required|max:500',
-            'image' => 'nullable|image',
-            'country' => 'required|max:60',
-            'province' => 'required|max:70',
-            'city' => 'required |max:70',
+            'image' => 'required|image',
+            'country' => 'required',
+            'province' => 'required',
+            'city' => 'required|max:70',
             'address' => 'required|max:80',
-            'postcode' => 'required|max:8',
         ];
     }
 }

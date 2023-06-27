@@ -11,16 +11,23 @@
 </head>
 
 <body>
+    <div id="spinner"
+        class="d-none position-fixed w-100 h-100 d-flex justify-content-center align-items-center bg-secondary"
+        style="--bs-bg-opacity: .5; z-index: 2000">
+        <div class="spinner-border" style="width: 6rem; height: 6rem;" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
     @yield('content')
     @if ($errors->any())
-        <div class="alert alert-danger alert-dissmisable position-fixed bottom-0 start-50 translate-middle"
+        <div class="global-alert alert alert-danger alert-dissmisable position-fixed bottom-0 start-50 translate-middle"
             role="alert">
             {{ $errors->first() }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
     @if (session()->has('messages'))
-        <div class="alert alert-success position-fixed alert-dissmisable bottom-0 start-50 translate-middle"
+        <div class="global-alert alert alert-success position-fixed alert-dissmisable bottom-0 start-50 translate-middle"
             role="alert">
             {{ session('messages') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>

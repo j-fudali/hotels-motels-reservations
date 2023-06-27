@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GuestsReservation;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\OffersController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\RoomController;
@@ -34,13 +36,17 @@ Route::middleware('guest')->group(function () {
 });
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-    Route::resource('offers', DashboardController::class);
-    Route::resource('reservations', ReservationController::class);
-    Route::resource('profile', UserController::class);
+    Route::resource('offers', OffersController::class)->only(['index', 'show']);
+    Route::controller(OffersController::class)->group(function () {
+        Route::get('offers/{hotel_name?}/{number_of_people?}/{country?}/{province?}', 'index')->name('offers.index');
+    });
+    Route::resource('reservations', ReservationController::class)->only(['index', 'store', 'destroy']);
+    Route::resource('profile', UserController::class)->only(['index', 'update']);
 });
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::resource('hotels', HotelController::class);
-    Route::resource('hotels.rooms', RoomController::class);
+    Route::resource('hotels', HotelController::class)->only(['index', 'store', 'update', 'destroy']);
+    Route::resource('hotels.rooms', RoomController::class)->only(['index', 'store', 'update', 'destroy'])->shallow();
+    Route::resource('guests-reservations', GuestsReservation::class)->only(['index', 'destroy']);
 });
 Route::any('/', function () {
     return redirect('/start');

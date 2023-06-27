@@ -166,7 +166,7 @@ return [
         'photo'                    => 'Zdjęcie',
         'postal_code'              => 'Postal Code',
         'price'                    => 'Cena',
-        'province'                 => 'Province',
+        'province'                 => 'Województwo',
         'recaptcha_response_field' => 'Recaptcha Response Field',
         'remember'                 => 'Remember',
         'restored_at'              => 'Restored At',
@@ -192,7 +192,10 @@ return [
         'username'                 => 'Nazwa użytkownika',
         'year'                     => 'Rok',
         'cost_per_day'             => 'Koszt za dzień',
-        'number_of_people'         => 'Liczba osób'
+        'number_of_people'         => 'Liczba osób',
+        'birth_date'                => 'Data urodzenia',
+        'starting_date'             => 'Data początku',
+        'ending_date'             => 'Data końca',
     ],
     'custom'               => [
         'attribute-name' => [
